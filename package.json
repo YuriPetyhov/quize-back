@@ -1,0 +1,24 @@
+{
+  "name": "quize-back",
+  "version": "1.0.0",
+  "description": "back-end",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YuriPetyhov/quize-back.git"
+  },
+  "author": "Yury",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YuriPetyhov/quize-back/issues"
+  },
+  "homepage": "https://github.com/YuriPetyhov/quize-back#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.7.5"
+  }
+}
