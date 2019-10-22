@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const User = new Schema({
+const userScheme = new Schema({
     login: String,
     password: {type: String, select: false}
 })
 
-const user = new User('jone', user)
+const User = mongoose.model("User", userScheme);
+const user = new User({login: "Li"});
+
 user.save(function(err){
     mongoose.disconnect();
 
