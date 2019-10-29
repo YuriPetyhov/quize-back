@@ -8,27 +8,28 @@ exports.login = (req, res, next) => {
     // возвращаем 400 - Bad Request
     return res.sendStatus(400)
   } else {
-    var login = req.body.login
-    var password = req.body.password
-    User.findOne({login: login})
-    // указываем явно, что нам нужно значение поля password
-    // (ибо его выборка отключена в модели)
-      .select('password role')
-      .exec(function(err, user){
-        console.log(user)
+    const login = req.body.login
+    const password = req.body.password
+
+    User.findOne({login: login} ,function(err, user){
+      console.log(user, '<---- user')
+      if (err) {
+        return res.sendStatus(500)
+      }
+      if (!user) {return res.sendStatus(401)}
+      bcrypt.compare(password, user.password, function(err, valid){
         if (err) {
           return res.sendStatus(500)
         }
-        if (!user) {return res.sendStatus(401)}
-        bcrypt.compare(password, user.password, function(err, valid){
-          if (err) {
-            return res.sendStatus(500)
-          }
-          if (!valid){ return res.sendStatus(401)}
-          var token = jwt.encode({login: login, role: user.role},'secret_code')
-          res.send(token)
-        })
+        if (!valid){ return res.sendStatus(401)}
+        var token = jwt.encode({login: login, role: user.role, avatar: user.avatar},'secret_code')
+        res.send(token)
       })
+    })
+    // указываем явно, что нам нужно значение поля password
+    // (ибо его выборка отключена в модели)
+    //   /.select('password role')
+
   }
 }
 

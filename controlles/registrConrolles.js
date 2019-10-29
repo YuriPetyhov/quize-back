@@ -3,12 +3,12 @@ const jwt = require('jwt-simple')
 const User = require('../models/Users')
 
 exports.addUser = (req, res, next) => {
-  console.log(req.body)
-  const{login, password, role} = req.body
+  const{login, password, role, avatar} = req.body
   const user = new User({
     login,
     password: '',
-    role
+    role,
+    avatar
   })
   bcrypt.hash(password, 10, (err, hash) => {
     if (err) {
